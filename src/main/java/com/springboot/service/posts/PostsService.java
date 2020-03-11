@@ -2,6 +2,7 @@ package com.springboot.service.posts;
 
 import com.springboot.domain.posts.Posts;
 import com.springboot.domain.posts.PostsRepository;
+import com.springboot.web.dto.PostsListResponseDto;
 import com.springboot.web.dto.PostsResponseDto;
 import com.springboot.web.dto.PostsSaveRequestDto;
 import com.springboot.web.dto.PostsUpdateRequestDto;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -37,5 +40,10 @@ public class PostsService {
         return new PostsResponseDto(entity);
     }
 
+    public List<PostsListResponseDto> findAllDesc() {
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
 
 }
